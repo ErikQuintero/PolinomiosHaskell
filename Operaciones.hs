@@ -100,3 +100,22 @@ module Operar where
 	termToNumC :: Term ->NumC
 	termToNumC (R(a,b)) = (a,0.0)
 	termToNumC (C ((a,b),c)) = (a,b)
+	
+	--Funcion que suma dos polinomios
+	sumaPol :: String ->String ->Polinomio
+	sumaPol p1 p2 = simplificar ((strToHaskell p1) ++ (strToHaskell p2))
+	
+	--Funcion que multiplica un termino por un polinomio
+	mulTermPol :: Term ->Polinomio ->Polinomio
+	mulTermPol t [] = []
+	mulTermPol t (x:xs) = [(mulTC t x)] ++ (mulTermPol t xs)
+	
+	--Funcion auxiliar que multiplica dos polinomios
+	mulPolsAux :: Polinomio ->Polinomio ->Polinomio
+	mulPolsAux p1 [] = []
+	mulPolsAux [] p2 = []
+	mulPolsAux (x:xs) p2 = (mulTermPol x p2) ++ (mulPolsAux xs p2)
+	
+	--Funcion que multiplica dos polinomios
+	mulPols :: String ->String ->Polinomio
+	mulPols s1 s2 = simplificar (mulPolsAux (strToHaskell s1) (strToHaskell s2))       
