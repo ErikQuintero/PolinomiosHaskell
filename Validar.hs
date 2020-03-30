@@ -1,5 +1,6 @@
 module Validar where
 	import Data.List
+	import Data.Char
 	
 	type TermR = (Double,Int)
 	type TermC = ((Double,Double) , Int)
@@ -13,16 +14,12 @@ module Validar where
 
 	--Verifica si un numero es valido
 	numVAux :: String -> Bool
-	numVAux s = if elem (read s) [x | x <- [0..1000000]] then True else False
-
-	--Auxiliar Validar
-	numLaStrL :: [Int] -> [String]
-	numLaStrL [] = []
-	numLaStrL (x:xs) = [(show x)] ++ (numLaStrL xs)
+	numVAux [] = True
+	numVAux (x:xs) = if (isDigit x) then (numVAux xs) else False
 
 	--Verifica si un termino es valido auxiliar
 	numV :: String -> Bool
-	numV s = if ((elem (delete 'x' (delete '^' ( delete '(' (delete ')' ( delete 'i' (delete '-'s)))))) (numLaStrL ([x | x <- [0..1000000]]))) || s == "") then True else False
+	numV s = numVAux (delete 'x' (delete '^' ( delete '(' (delete ')' ( delete 'i' (delete '-'s))))))
 
 	--Valida polinomio completo
 	numVPol :: [String] -> Bool
@@ -143,7 +140,7 @@ module Validar where
 	listToPolAux2 :: String -> Polinomio
 	listToPolAux2 "" = []
 	listToPolAux2 s = listToPolAux (listAux s)
-
+	  
 	--Devuelve el exponente de un termino
 	getEx :: Term -> Int
 	getEx (R x) = (snd x)
