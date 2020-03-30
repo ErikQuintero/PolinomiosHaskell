@@ -61,5 +61,3 @@ module Simplificar where
         --Funcion que tranforma la cadena inicial en algo que haskell entienda
         strToHaskell :: String ->Polinomio
         strToHaskell a = simplificar (polToPolinomio (msort (polinomioToPol (simpList1 (listToPol a))))) 
-        
-        
