@@ -1,4 +1,4 @@
-module Operar where
+module Operaciones where
 	import Validar
 	import Simplificar 
     	     	
