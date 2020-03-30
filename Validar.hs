@@ -2,6 +2,7 @@ module Validar where
 	import Data.List
 	import Data.Char
 	
+	type NumC = (Double,Double)
 	type TermR = (Double,Int)
 	type TermC = ((Double,Double) , Int)
 	data Term = R TermR | C TermC
@@ -10,8 +11,9 @@ module Validar where
 	instance Show Term where 
     	    show e = case e of
     	     (R x) -> "(" ++ (show (fst x)) ++  "," ++ (show (snd x)) ++ ")"
-    	     (C y) -> "(" ++ "(" ++ (show (fst(fst y))) ++ "," ++ (show (snd(fst y))) ++ ")" ++ "," ++ (show (snd y)) ++ ")"  
+    	     (C y) -> "(" ++ "(" ++ (show (fst(fst y))) ++ "," ++ (show (snd(fst y))) ++ ")" ++ "," ++ (show (snd y)) ++ ")"
 
+             
 	--Verifica si un numero es valido
 	numVAux :: String -> Bool
 	numVAux [] = True

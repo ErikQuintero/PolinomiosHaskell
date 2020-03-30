@@ -11,7 +11,7 @@ module Simplificar where
 	
 	--Funcion que transforma real a un termino comlejo
 	termRToCAux :: Term -> Term 
-	termRToCAux (R (a,b)) = (C ((0.0,a), b))
+	termRToCAux (R (a,b)) = (C ((a,0.0), b))
 	termRToCAux (C ((a,b), c)) = (C ((a,b), c))
 	
 	--Funcion que transforma un termino a un termC2
