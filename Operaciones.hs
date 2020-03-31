@@ -103,7 +103,7 @@ module Operaciones where
 	
 	--Funcion que suma dos polinomios
 	sumaPol1 :: String ->String ->Polinomio
-	sumaPol1 p1 p2 = simplificar ((strToHaskell p1) ++ (strToHaskell p2))
+	sumaPol1 p1 p2 = simplificar (msort((strToHaskell p1) ++ (strToHaskell p2)))
 	
 	--Funcion que multiplica un termino por un polinomio
 	mulTermPol :: Term ->Polinomio ->Polinomio
@@ -118,4 +118,4 @@ module Operaciones where
 	
 	--Funcion que multiplica dos polinomios
 	mulPols1 :: String ->String ->Polinomio
-	mulPols1 s1 s2 = simplificar (mulPolsAux (strToHaskell s1) (strToHaskell s2))       
+	mulPols1 s1 s2 = simplificar (simplificar(mulPolsAux (strToHaskell s1) (strToHaskell s2)))       

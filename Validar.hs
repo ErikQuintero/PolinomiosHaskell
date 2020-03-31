@@ -5,7 +5,7 @@ module Validar where
 	type NumC = (Double,Double)
 	type TermR = (Double,Int)
 	type TermC = ((Double,Double) , Int)
-	data Term = R TermR | C TermC
+	data Term = R TermR | C TermC deriving (Eq,Ord)
 	type Polinomio = [Term]
 
 	instance Show Term where 
