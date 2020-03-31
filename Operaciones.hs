@@ -17,8 +17,8 @@ module Operaciones where
 	eliminar0 (x:xs) = if (iguales (C((0.0,0.0),0))  x) then (eliminar0 xs) else ([x] ++ (eliminar0 xs))
 	
 	--Funcion que deriva un polinomio 
-	derivar :: String ->Polinomio
-	derivar p = eliminar0 (derivarAux (strToHaskell (p))) 
+	derivar1 :: String ->Polinomio
+	derivar1 p = eliminar0 (derivarAux (strToHaskell (p))) 
 	
 	--Funcion que integra un  solo termino
 	integrarTerm :: Term ->Term
@@ -26,17 +26,17 @@ module Operaciones where
 	integrarTerm (C ((a,b),c)) = if (c==0) then (C ((a,b),1)) else(C(((a/((read (show (c+1)) :: Double))),(b/((read (show (c+1)) :: Double)))),c+1))
 	
 	--Funcion que integra un polinomio
-	integrar :: Polinomio ->Polinomio 
-	integrar [] = []
-	integrar (x:xs) = [(integrarTerm x)] ++ (integrar xs)
+	integrar1 :: Polinomio ->Polinomio 
+	integrar1 [] = []
+	integrar1 (x:xs) = [(integrarTerm x)] ++ (integrar1 xs)
 	
 	--Funcion auxiliar para integrar de manera definida
 	integrarDefAux :: Polinomio ->Double ->Double ->String
-	integrarDefAux p a b = if a <= b then numCTostr(restNumC (evalPolAux3 (integrar p) (b,0.0)) (evalPolAux3 (integrar p) (a,0.0))) else numCTostr(restNumC (evalPolAux3 (integrar p) (a,0.0)) (evalPolAux3 (integrar p) (b,0.0))) 
+	integrarDefAux p a b = if a <= b then numCTostr(restNumC (evalPolAux3 (integrar1 p) (b,0.0)) (evalPolAux3 (integrar1 p) (a,0.0))) else numCTostr(restNumC (evalPolAux3 (integrar1 p) (a,0.0)) (evalPolAux3 (integrar1 p) (b,0.0))) 
 	
 	--Funcion que calcula la integral definida de un polinomio
-	integrarDef :: String ->Double ->Double ->String
-	integrarDef s a b = integrarDefAux (strToHaskell s) a b
+	integrarDef1 :: String ->Double ->Double ->String
+	integrarDef1 s a b = integrarDefAux (strToHaskell s) a b
 	
 	--Funcion que verifica si dos terminos son iguales
 	iguales :: Term ->Term ->Bool
@@ -93,8 +93,8 @@ module Operaciones where
 	numCTostr (a,b) = "(" ++ (show a) ++ "," ++ (show b) ++ ")"
 	
 	--Funcion que evalua un polinomio usando un numero complejo
-	evalPol :: String ->NumC ->String
-	evalPol s w = numCTostr (evalPolAux2 s w)
+	evalPol1 :: String ->NumC ->String
+	evalPol1 s w = numCTostr (evalPolAux2 s w)
 	
 	--Funcion que devuelve el numero complejo de un termino
 	termToNumC :: Term ->NumC
@@ -102,8 +102,8 @@ module Operaciones where
 	termToNumC (C ((a,b),c)) = (a,b)
 	
 	--Funcion que suma dos polinomios
-	sumaPol :: String ->String ->Polinomio
-	sumaPol p1 p2 = simplificar ((strToHaskell p1) ++ (strToHaskell p2))
+	sumaPol1 :: String ->String ->Polinomio
+	sumaPol1 p1 p2 = simplificar ((strToHaskell p1) ++ (strToHaskell p2))
 	
 	--Funcion que multiplica un termino por un polinomio
 	mulTermPol :: Term ->Polinomio ->Polinomio
@@ -117,5 +117,5 @@ module Operaciones where
 	mulPolsAux (x:xs) p2 = (mulTermPol x p2) ++ (mulPolsAux xs p2)
 	
 	--Funcion que multiplica dos polinomios
-	mulPols :: String ->String ->Polinomio
-	mulPols s1 s2 = simplificar (mulPolsAux (strToHaskell s1) (strToHaskell s2))       
+	mulPols1 :: String ->String ->Polinomio
+	mulPols1 s1 s2 = simplificar (mulPolsAux (strToHaskell s1) (strToHaskell s2))       
