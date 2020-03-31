@@ -12,12 +12,7 @@ module Cadenas where
 	--Funcio auxiliar para termToStringAux
 	termCToString :: Term ->String
 	termCToString (C((x,y),z)) = if y >= 0 then "(" ++ (show x) ++ "+" ++ (show y) ++ "i"++ ")"else "(" ++ (show x) ++ (show y) ++ "i"++ ")" 
-	
-	--Funcion que tranforma un termino a una reprsentacion en cadena
-	termToString :: Term ->String
-	termToString (R(a,b)) = if b == 0 then (termToStringAux (R(a,b))) else (termToStringAux (R(a,b))) ++ "x^" ++ (show b)
-	termToString (C((x,y),z)) = if z == 0 then (termToStringAux (C((x,y),z))) else (termToStringAux (C((x,y),z))) ++ "x^" ++ (show z) 
-	
+        	 
 	--Funcion auxiliar que transforma terminos complejos en reales, solo si es necesario
 	termToTerm :: Term ->Term
 	termToTerm (R (a,b)) = (R (a,b))
@@ -43,3 +38,17 @@ module Cadenas where
 	--Funcion auxiliar 2 que tranforma un polinomio a una representacion en cadena
 	polToString :: Polinomio ->String
 	polToString p = (polToStringAux (mixPol p))
+        
+    --Funcion que tranforma un termino a una reprsentacion en cadena
+	termToString :: Term ->String
+	termToString (R(a,b)) = (termToStringAux (R(a,b))) ++ (termAux (R(a,b))) 
+	termToString (C((x,y),z)) = (termToStringAux (C((x,y),z))) ++ (termAux (C((x,y),z)))
+	
+	    --Funcion auxiliar para termToString
+        termAux :: Term ->String
+        termAux (R(a,0)) = ""
+        termAux (R(a,1)) = "x"
+        termAux (R(a,b)) = "x^" ++ (show b)
+        termAux (C((x,y),0)) = ""
+        termAux (C((x,y),1)) = "x"
+        termAux (C((x,y),z)) = "x^"++ (show z)
